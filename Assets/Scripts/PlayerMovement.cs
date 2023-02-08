@@ -14,6 +14,12 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     [SerializeField] private bool grounded;
 
+    [Header("Climb Ability variables")]
+    [SerializeField] bool canClimb;
+    [SerializeField] bool isClimbing;
+    private float climbDirection;
+    public float climbSpeed;
+
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -25,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        #region Movement and Jump
         //player input
         moveDirection = Input.GetAxisRaw("Horizontal");
 
@@ -44,7 +51,43 @@ public class PlayerMovement : MonoBehaviour
 
         if (grounded && Input.GetKeyDown(KeyCode.Space))
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce); 
+        }
+        #endregion
+
+        #region Climb
+        climbDirection = Input.GetAxisRaw("Vertical");
+        if(canClimb && climbDirection > 0f)
+        {
+            isClimbing = true;
+        }
+
+        if(isClimbing)
+        {
+            rb.gravityScale = 0f;
+            rb.velocity = new Vector2(rb.velocity.x, climbDirection * climbSpeed);
+        }
+        if(!isClimbing)
+        {
+            rb.gravityScale = 5f;
+        }
+        #endregion
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Rope"))
+        {
+            canClimb = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Rope"))
+        {
+            canClimb = false;
+            isClimbing = false;
         }
     }
 }
