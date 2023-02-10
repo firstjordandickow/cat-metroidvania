@@ -14,6 +14,23 @@ public class Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        Debug.Log("Hello world");
+      
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        
+    }
+
+
+
 }
