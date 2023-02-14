@@ -1006,6 +1006,9 @@ MonoBehaviour:
     m_Bits: 8
   groundCheck: {fileID: 1455056915}
   grounded: 0
+  canClimb: 0
+  isClimbing: 0
+  climbSpeed: 6
 --- !u!50 &1078614804
 Rigidbody2D:
   serializedVersion: 4
