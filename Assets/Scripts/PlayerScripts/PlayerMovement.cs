@@ -76,9 +76,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Rope"))
+        if(collision.CompareTag("RopeSkill"))
         {
             canClimb = true;
+            Destroy(collision.gameObject);
         }
     }
 
@@ -86,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if(collision.CompareTag("Rope"))
         {
-            canClimb = false;
             isClimbing = false;
         }
     }
